@@ -12,8 +12,8 @@ const port = 3000;
 app.get("/", (req, res) => res.status(200).send({name:"bhavik",hyy:"hello"}));
 
 
-app.use("/auth/register",userRoute);
-    
+app.use("/auth",userRoute);
+app.use("/auth",userRoute);
 
 mongoose
   .connect("mongodb+srv://Bhavik:Bhavik2004@shopapp.mwu3opv.mongodb.net/?retryWrites=true&w=majority&appName=shopApp")
