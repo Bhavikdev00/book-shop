@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: false })); // for parsing application/x-w
 
 const port = 3000;
 
-app.get("/", (req, res) => res.send("Hello World!"));
+app.get("/", (req, res) => res.status(200).send({name:"bhavik",hyy:"hello"}));
 
 
 app.use("/auth/register",userRoute);
