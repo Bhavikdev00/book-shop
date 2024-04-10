@@ -7,7 +7,7 @@ const registerUser=async(req, res) => {
   
     try {
       const user=await User.create(req.body);
-      res.status(201).json({ status:"Success",message: "Email already registered" });
+      res.status(201).json({ status:"Success",message: "User Created Successfully" });
     } catch (error) {
       if (error.code === 11000) {
         return res.status(409).json({ status:"Failed",message: "Email already registered" });
