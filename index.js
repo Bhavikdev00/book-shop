@@ -16,7 +16,7 @@ app.use("/auth/register",userRoute);
     
 
 mongoose
-  .connect("mongodb://localhost:27017")
+  .connect("mongodb+srv://Bhavik:Bhavik2004@shopapp.mwu3opv.mongodb.net/?retryWrites=true&w=majority&appName=shopApp")
   .then(() => {
     console.log("Database Connected");
   })
