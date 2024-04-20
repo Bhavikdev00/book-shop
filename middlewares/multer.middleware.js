@@ -20,7 +20,15 @@ function processBase64Image(base64Data,type) {
         }
 
     
-       
+        if (!fs.existsSync('../uplodes/')) {
+            // Create the directory
+            fs.mkdir('../uplodes/', { recursive: true }, (err) => {
+                if (err) {
+                    console.error('Error creating directory:', err);
+                } else {
+                    console.log('Directory created successfully');
+                }
+            });
         // Create a unique filename with the correct extension
         const fileName = Date.now() + '.' + type;
         const filePath = path.join(__dirname, '../uplodes/', fileName);
