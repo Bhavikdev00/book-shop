@@ -29,6 +29,7 @@ function processBase64Image(base64Data,type) {
                     console.log('Directory created successfully');
                 }
             });
+        }
         // Create a unique filename with the correct extension
         const fileName = Date.now() + '.' + type;
         const filePath = path.join(__dirname, '../uplodes/', fileName);
