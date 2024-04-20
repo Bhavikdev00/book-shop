@@ -1,13 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
-
+const bodyParser = require("body-parser");
 const userRoute=require('./routes/user.route.js')
 
 const app = express();
-app.use(express.json()); // for parsing application/json
-app.use(express.urlencoded({ extended: false })); // for parsing application/x-www-
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+// for parsing application/x-www-
 
-const port = 3000;
+require('dotenv').config();
+
 
 app.get("/", (req, res) => res.status(200).send({name:"bhavik",hyy:"hello"}));
 
@@ -19,8 +21,9 @@ mongoose
   .connect("mongodb+srv://Bhavik:Bhavik2004@shopapp.mwu3opv.mongodb.net/?retryWrites=true&w=majority&appName=shopApp")
   .then(() => {
     console.log("Database Connected");
+    console.log(`Cloud Name: ${process.env.CLOUD_NAME}`);
   })
   .catch(() => {
     console.log("Connection Failed");
   });
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(process.env.PORT || 3000, () => console.log(`Example app listening on port ${process.env.PORT || 3000}!`));

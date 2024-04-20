@@ -1,14 +1,35 @@
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
+const fs=require("fs");
 
+const {processBase64Image,uploadFileAndCleanUp} = require("../middlewares/multer.middleware");
 
 const registerUser=async(req, res) => {
     console.log(req.body);
    
   
     try {
-      const user=await User.create(req.body);
-      res.status(201).json({ status:"Success",message: "User Created Successfully" });
+      const base64Data=req.body.avatar;
+      const check_user=await User.findOne({email:req.body.email});
+      if(check_user){
+        return res.status(409).json({ status:"Failed",message: "Email already registered" });
+      }
+      const { filePath } = await processBase64Image(base64Data,"jpg");
+
+      // Upload local file to Cloudinary and delete local file
+      const imageUrl = await uploadFileAndCleanUp(filePath);
+      console.log(imageUrl);
+      const user=new User({
+        firstName:req.body.firstName,
+        lastName:req.body.lastName,phoneNumber:req.body.phoneNumber,
+        email:req.body.email,
+        password:req.body.password,
+        avatar:imageUrl,
+      });
+      await user.save();
+
+      const currentUser=await User.findById(user._id).select("-password");
+      return res.status(201).json({ status:"Success",data:currentUser,message: "User Created Successfully" });
     } catch (error) {
       if (error.code === 11000) {
         return res.status(409).json({ status:"Failed",message: "Email already registered" });
@@ -20,7 +41,8 @@ const registerUser=async(req, res) => {
   const loginUser=async(req, res) => {
     const { email, password } = req.body;
     console.log(email);
-    console.log(password);
+   
+
     try {
       // Find user by email
       const user = await User.findOne({ email });
@@ -37,7 +59,7 @@ const registerUser=async(req, res) => {
       }
   
       // If email and password are correct, return success message
-      const token = jwt.sign({ _id:user._id,name:user.name,email:user.email }, "Bhavik@200494816", { expiresIn: "1h" });
+      const token = jwt.sign({ _id:user._id,name:user.name,email:user.email }, "Bhavik@200494816", { expiresIn: "100h" });
       res.status(200).json({ status: "Success", message: "Login successful" ,token});
     } catch (error) {
       console.error("Error during login:", error);
@@ -48,3 +70,7 @@ const registerUser=async(req, res) => {
 
 
   module.exports={registerUser,loginUser};
+
+
+
+  
