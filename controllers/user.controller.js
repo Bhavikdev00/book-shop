@@ -8,7 +8,7 @@ const registerUser=async(req, res) => {
     console.log(req.body);
    
   
-    try {
+    // try {
       const base64Data=req.body.avatar;
       const check_user=await User.findOne({email:req.body.email});
       if(check_user){
@@ -30,12 +30,12 @@ const registerUser=async(req, res) => {
 
       const currentUser=await User.findById(user._id).select("-password");
       return res.status(201).json({ status:"Success",data:currentUser,message: "User Created Successfully" });
-    } catch (error) {
-      if (error.code === 11000) {
-        return res.status(409).json({ status:"Failed",message: "Email already registered" });
-      }
-     return  res.status(500).json({ status:"Failed", message: "Internal Server Error"});
-    }
+    // } catch (error) {
+    //   if (error.code === 11000) {
+    //     return res.status(409).json({ status:"Failed",message: "Email already registered" });
+    //   }
+    //  return  res.status(500).json({ status:"Failed", message: "Internal Server Error"});
+    // }
   }
 
   const loginUser=async(req, res) => {
