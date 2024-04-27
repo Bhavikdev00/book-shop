@@ -76,7 +76,7 @@ cloudinary.config({
     api_secret: process.env.CLOUD_API_SECRATE,
 });
 
-function processBase64Image(base64Data, type) {
+function processBase64Image( base64Data,type) {
     return new Promise((resolve, reject) => {
         if (!base64Data) {
             reject(new Error('Base64 data is required'));

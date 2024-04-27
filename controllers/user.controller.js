@@ -1,9 +1,8 @@
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
-const fs=require("fs");
 const nodemailer = require("nodemailer");
 
-const {processBase64Image,uploadFileAndCleanUp} = require("../middlewares/multer.middleware");
+const {processBase64Image} = require("../middlewares/multer.middleware");
 
 const registerUser=async(req, res) => {
     console.log(req.body);

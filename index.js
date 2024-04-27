@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const userRoute=require('./routes/user.route.js')
+const authorRoute=require('./routes/author.route.js')
 
 const app = express();
 app.use(bodyParser.json())
@@ -11,10 +12,11 @@ app.use(bodyParser.urlencoded({ extended: true }))
 require('dotenv').config();
 
 
-app.get("/", (req, res) => res.status(200).send({name:"bhavik",hyy:"hello"}));
+// app.get("/", (req, res) => res.status(200).send({name:"bhavik",hyy:"hello"}));
 
 
 app.use("/auth",userRoute);
+app.use("/",authorRoute);
 
 
 mongoose

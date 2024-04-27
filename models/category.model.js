@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
-const CateoryScema = mongoose.Schema({
+const cateoryScema = mongoose.Schema({
     category_name:{type:String},
 
 },{ timestamps: true});
 
 
-const Cateory=mongoose.model( 'Cateory', CateoryScema );
+const Cateory=mongoose.model( 'Cateory', cateoryScema );
 module.exports = Cateory;
    
