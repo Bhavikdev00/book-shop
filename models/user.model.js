@@ -12,6 +12,7 @@ const userScema = mongoose.Schema(
     avatar: {
       type: String,
     },
+      isVerified: { type: Boolean, required: true,default: false}
   },
   { timestamps: true }
 );
